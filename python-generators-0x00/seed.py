@@ -65,10 +65,25 @@ def read_csv(file_path):
     with open(file_path, newline='') as csvfile:
         return list(csv.DictReader(csvfile))
 
-def stream_users(connection):
-    cursor = connection.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM user_data")
-    for row in cursor:
-        yield row
-    cursor.close()
+# def stream_users(connection):
+#     cursor = connection.cursor(dictionary=True)
+#     cursor.execute("SELECT * FROM user_data")
+#     for row in cursor:
+#         yield row
+#     cursor.close()
+
+
+if __name__ == "__main__":
+    create_database()
+    prodev_conn = connect_to_prodev()
+    create_table(prodev_conn)
+
+    user_data = read_csv("user_data.csv")
+    insert_data(prodev_conn, user_data)
+
+    # print("Streaming users from database:")
+    # for user in stream_users(prodev_conn):
+    #     print(user)
+
+    prodev_conn.close()
 
