@@ -2,7 +2,13 @@
 from itertools import islice
 from seed import connect_to_prodev
 
-
+def stream_users(connection):
+    cursor = connection.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM user_data")
+    for row in cursor:
+        yield row
+    cursor.close()
+    connection.close()
 
 def stream_users_in_batches(batch_size):
     connection = connect_to_prodev()

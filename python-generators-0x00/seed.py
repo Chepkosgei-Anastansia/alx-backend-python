@@ -65,12 +65,12 @@ def read_csv(file_path):
     with open(file_path, newline='') as csvfile:
         return list(csv.DictReader(csvfile))
 
-# def stream_users(connection):
-#     cursor = connection.cursor(dictionary=True)
-#     cursor.execute("SELECT * FROM user_data")
-#     for row in cursor:
-#         yield row
-#     cursor.close()
+def stream_users(connection):
+    cursor = connection.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM user_data")
+    for row in cursor:
+        yield row
+    cursor.close()
 
 
 if __name__ == "__main__":
